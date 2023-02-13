@@ -45,6 +45,7 @@ span {
 }
 .active {
   /* border: 2px solid red; */
+  color: white;
   font-size: 3rem;
 }
 .error {
