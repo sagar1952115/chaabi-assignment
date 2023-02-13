@@ -1,0 +1,52 @@
+.main-test-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  height: 100vh;
+  color: #646669;
+  word-spacing: 5px;
+  letter-spacing: 2px;
+  background-color: #323437;
+}
+
+.test-screen {
+  display: flex;
+  width: 60%;
+  min-height: 2rem;
+  padding: 1rem;
+  margin: 2rem;
+  justify-content: center;
+}
+.test-textarea {
+  display: flex;
+  width: 60%;
+  min-height: 2rem;
+  padding: 1rem;
+  margin: 2rem;
+}
+textarea {
+  min-height: 2rem;
+  outline: none;
+  border: none;
+  font-size: 1.2rem;
+  caret-color: yellow;
+  background-color: #323437;
+  color: white;
+}
+span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* border: 2px solid black; */
+  height: 4rem;
+  width: 2rem;
+}
+.active {
+  /* border: 2px solid red; */
+  font-size: 3rem;
+}
+.error {
+  background-color: red;
+}
