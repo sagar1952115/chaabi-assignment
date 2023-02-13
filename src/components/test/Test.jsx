@@ -57,7 +57,7 @@ const Test = () => {
 
   const dispatch = useDispatch();
 
-  if (seconds % 10 === 0 && seconds !== 0 && timerId) {
+  if (seconds % 300 === 0 && seconds !== 0 && timerId) {
     setshowresult(true);
     clearInterval(timerId);
     setSeconds(0);
@@ -105,17 +105,17 @@ const Test = () => {
         setIndex(0);
         setIsActive(0);
         setIswrong(-1);
-        setWrongCount(0);
         dispatch({ type: "SHOW", payload: { wpm: WPM, accuracy: accuracy } });
         handleTextChange();
       } else {
-        setWrongCharacterTyped(wrongCharacterTyped + 1);
         setIswrong(-1);
         setIsActive(temp + 1);
         setIndex(temp + 1);
       }
     } else {
+      setWrongCharacterTyped(wrongCharacterTyped + 1);
       setIswrong(temp);
+      setWrongCount(wrongCount + 1);
     }
 
     if (value.length > inputText.length) {
