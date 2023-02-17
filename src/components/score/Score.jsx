@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import "./Score.css";
 
 const Score = () => {
-  const { wpm, accuracy, totalPressIn5 } = useSelector((store) => store.app);
+  const { wpmIn5, accuracy, totalPressIn5 } = useSelector((store) => store.app);
   return (
     <div>
       <div className="main-score-container">
@@ -22,7 +22,7 @@ const Score = () => {
           </div>
           <div className="score-body">
             <div className="score-heading">WPM</div>
-            <div className="score">{wpm}</div>
+            <div className="score">{wpmIn5}</div>
           </div>
           <div className="score-body">
             <div className="score-heading">Accuracy</div>

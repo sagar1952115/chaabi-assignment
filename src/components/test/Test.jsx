@@ -1,42 +1,9 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Score from "../score/Score";
+import data from "../../data";
 import "./Test.css";
 
-const easy = [
-  "aa aa aa aa",
-  "ss ss ss ss",
-  "dd dd dd dd",
-  "ff ff ff ff",
-  "gg gg gg gg",
-  "hh hh hh hh",
-  "jj jj jj jj",
-  "kk kk kk kk",
-  "ll ll ll ll",
-  ";; ;; ;; ;;",
-  "ls dj al dl",
-  "as as as as",
-  "df df df df",
-  "gh gh gh gh",
-  "jk jk jk jk",
-  "l; l; l; l;",
-  "sa df gj lk",
-  "dj al sk ;l",
-  "as df gj kl",
-  "sd jg la ;k",
-  "asdf l;l;",
-  "djsa fghl",
-  "sadj hgfl",
-  "jdas l;gh",
-  "asdj ;lgf",
-  "sdja hl;g",
-  "djsa lg;h",
-  "adsj ;flg",
-  "sjad glh;",
-  "jads ;lhg",
-  "dsafadsfas",
-  "adsfadsfas",
-];
 const Test = () => {
   /* eslint-disable */
   const currentText = useSelector((store) => store.app.currentText).split("");
@@ -46,7 +13,6 @@ const Test = () => {
   const [inputText, setInputText] = useState("");
   const [startTime, setStartTime] = useState(null);
   const [total, setTotal] = useState(1);
-  const [wrongCount, setWrongCount] = useState(0);
   const [seconds, setSeconds] = useState(0);
   const [timerId, setTimerId] = useState(null);
 
@@ -60,11 +26,13 @@ const Test = () => {
   if (seconds % 300 === 0 && seconds !== 0 && timerId) {
     setshowresult(true);
     clearInterval(timerId);
+    console.log(totalCharacterTyped);
+    console.log(wrongCharacterTyped);
     setSeconds(0);
-    const elapsedTime = (Date.now() - startTime) / 1000;
-    const WPM = Math.round(totalCharacterTyped / 5 / (elapsedTime / 60));
+    const WPM = Math.round(totalCharacterTyped / 5 / 5);
+    console.log("this is wpm " + WPM);
     const NWPM = Math.round(
-      (totalCharacterTyped - wrongCharacterTyped) / 5 / (elapsedTime / 60)
+      (totalCharacterTyped - wrongCharacterTyped) / 5 / 5
     );
     const accuracy = Math.floor((NWPM * 100) / WPM);
     dispatch({
@@ -74,12 +42,9 @@ const Test = () => {
   }
 
   const handleTextChange = () => {
-    const randomIndex = Math.floor(Math.random() * easy.length);
-
-    dispatch({ type: "NEWLINE", payload: easy[randomIndex] });
+    const randomIndex = Math.floor(Math.random() * data.length);
+    dispatch({ type: "NEWLINE", payload: data[randomIndex] });
   };
-
-  const color = useRef(null);
 
   const handleInputChange = (event) => {
     const value = event.target.value;
@@ -95,17 +60,10 @@ const Test = () => {
     const temp = Math.min(index, value.length - 1);
     if (value[temp] === currentText[temp]) {
       if (temp === currentText.length - 1) {
-        const elapsedTime = (Date.now() - startTime) / 1000;
-        const WPM = Math.round(total / 5 / (elapsedTime / 60));
-        const NWPM = Math.round((total - wrongCount) / 5 / (elapsedTime / 60));
-        const accuracy = Math.floor((NWPM * 100) / WPM);
         setInputText("");
-        setStartTime(null);
-        setTotal(1);
         setIndex(0);
         setIsActive(0);
         setIswrong(-1);
-        dispatch({ type: "SHOW", payload: { wpm: WPM, accuracy: accuracy } });
         handleTextChange();
       } else {
         setIswrong(-1);
@@ -115,7 +73,6 @@ const Test = () => {
     } else {
       setWrongCharacterTyped(wrongCharacterTyped + 1);
       setIswrong(temp);
-      setWrongCount(wrongCount + 1);
     }
 
     if (value.length > inputText.length) {
@@ -161,7 +118,6 @@ const Test = () => {
           id=""
           value={inputText}
           onChange={handleInputChange}
-          ref={color}
           cols="30"
           rows="7"
           autoFocus
