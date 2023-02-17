@@ -26,11 +26,8 @@ const Test = () => {
   if (seconds % 300 === 0 && seconds !== 0 && timerId) {
     setshowresult(true);
     clearInterval(timerId);
-    console.log(totalCharacterTyped);
-    console.log(wrongCharacterTyped);
     setSeconds(0);
     const WPM = Math.round(totalCharacterTyped / 5 / 5);
-    console.log("this is wpm " + WPM);
     const NWPM = Math.round(
       (totalCharacterTyped - wrongCharacterTyped) / 5 / 5
     );
@@ -48,7 +45,6 @@ const Test = () => {
 
   const handleInputChange = (event) => {
     const value = event.target.value;
-    console.log(index);
     setInputText(value);
     if (seconds === 0 && !timerId) {
       let id = setInterval(() => {
