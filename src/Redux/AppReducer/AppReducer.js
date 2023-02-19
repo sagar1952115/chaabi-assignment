@@ -12,9 +12,6 @@ function AppReducer(state = initState, action) {
     case "NEWLINE": {
       return { ...state, currentText: payload };
     }
-    case "SHOW": {
-      return { ...state, wpm: payload.wpm, accuracy: payload.accuracy };
-    }
     case "COMPLETE": {
       return {
         ...state,
