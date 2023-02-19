@@ -23,15 +23,21 @@ const Test = () => {
 
   const dispatch = useDispatch();
 
-  if (seconds % 300 === 0 && seconds !== 0 && timerId) {
+  if (seconds % 10 === 0 && seconds !== 0 && timerId) {
     setshowresult(true);
     clearInterval(timerId);
     setSeconds(0);
+    console.log(totalCharacterTyped);
+    console.log(wrongCharacterTyped);
     const WPM = Math.round(totalCharacterTyped / 5 / 5);
     const NWPM = Math.round(
       (totalCharacterTyped - wrongCharacterTyped) / 5 / 5
     );
-    const accuracy = Math.floor((NWPM * 100) / WPM);
+    console.log(WPM);
+    console.log(NWPM);
+    const accuracy = Math.floor(
+      ((totalCharacterTyped - wrongCharacterTyped) * 100) / totalCharacterTyped
+    );
     dispatch({
       type: "COMPLETE",
       payload: { totalCharacterTyped, WPM, accuracy },
